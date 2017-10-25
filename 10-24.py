@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 import os
 from classes import MCS_Finder
@@ -61,7 +61,7 @@ print(len(os.listdir("test")))
 
 # 一個多いのは.DS_Storeのせい 
 
-# In[9]:
+# In[3]:
 
 ari = []
 for genus in os.listdir("test"):
@@ -73,17 +73,17 @@ for genus in os.listdir("test"):
         ari.append(genus)
 
 
-# In[10]:
+# In[4]:
 
 print(len(ari))
 
 
-# In[11]:
+# In[5]:
 
 print(ari)
 
 
-# In[12]:
+# In[6]:
 
 def get_all_cnumber_from_kcfs(genus):
     with open("test/" + genus + "/kcfs.kcfs")as f:
@@ -95,24 +95,24 @@ def get_all_cnumber_from_kcfs(genus):
     return Cnlist
 
 
-# In[13]:
+# In[7]:
 
 get_all_cnumber_from_kcfs(ari[0])
 
 
-# In[14]:
+# In[8]:
 
 arilist = []
 for genus in ari:
     arilist.append(get_all_cnumber_from_kcfs(genus))
 
 
-# In[15]:
+# In[9]:
 
 print(arilist)
 
 
-# In[16]:
+# In[10]:
 
 kosuu = dict()
 for Cnlist in arilist:
@@ -120,17 +120,17 @@ for Cnlist in arilist:
         kosuu[Cn] = kosuu.get(Cn, 0) + 1
 
 
-# In[17]:
+# In[11]:
 
 print(kosuu)
 
 
-# In[18]:
+# In[12]:
 
 print(len(kosuu))
 
 
-# In[19]:
+# In[13]:
 
 for i in kosuu.items():
     if i[1] > 1:
@@ -141,7 +141,7 @@ for i in kosuu.items():
 
 # 逆に共通構造や特異的な構造は見つけやすいのでは？
 
-# In[20]:
+# In[14]:
 
 kosuu2 = dict()
 for genus in ari:
@@ -152,19 +152,19 @@ for genus in ari:
             kosuu2[(temp[1], temp[2])] = kosuu2.get((temp[1], temp[2]), 0) + int(temp[3])
 
 
-# In[21]:
+# In[15]:
 
 print(kosuu2)
 
 
-# In[22]:
+# In[16]:
 
 sorted(kosuu2.items(), reverse=True, key=lambda x: x[1])
 
 
 # 44個もある大きめのスケルトンを抜く
 
-# In[64]:
+# In[17]:
 
 def gCfl(genus, label):
     import re
@@ -191,7 +191,7 @@ def gCfl(genus, label):
         return Cnlist
 
 
-# In[66]:
+# In[18]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C-C(C-C-C-C(C)-C-C-C(C-C)-C(C)-C)-C-C-C-C-C(C)-C-C-C-C-C')
@@ -201,7 +201,7 @@ for genus in ari:
         print()
 
 
-# In[67]:
+# In[19]:
 
 dekai = []
 for genus in ari:
@@ -211,7 +211,7 @@ for genus in ari:
             dekai.append(Cn)
 
 
-# In[68]:
+# In[20]:
 
 print(len(dekai), len(set(dekai)))
 
@@ -219,7 +219,7 @@ print(len(dekai), len(set(dekai)))
 # 44個あったあのでかい奴は31化合物27種類に入れられていた。  
 # こいつをグリッドで書いてみる
 
-# In[27]:
+# In[21]:
 
 Cnlist = []
 for i in range(1, 52):
@@ -230,7 +230,7 @@ for i in range(1, 52):
 print(Cnlist)
 
 
-# In[28]:
+# In[25]:
 
 import sys
 sys.path.append("../../module")
@@ -261,7 +261,7 @@ for z, i in enumerate(sorted(dekai)):
                                     print("Charge in\n")
                                 counter += 1
                                 break
-                            rdDepictor.Compute2DCoords(mol)
+                            # rdDepictor.Compute2DCoords(mol)
                             mol_list.append(mol)
                             nCnumber.append(i)
                             if "#+" in C or "#-" in C:
@@ -274,11 +274,11 @@ for z, i in enumerate(sorted(dekai)):
 print(counter)
 
 
-# In[29]:
+# In[26]:
 
 from rdkit.Chem import Draw
 img = Draw.MolsToGridImage(mol_list, legends=sorted(dekai), subImgSize=(400, 400))
-img.save("test/others/test.png")
+img.save("test/others/test_noD.png")
 
 
 # from rdkit.Chem import rdFMCS
@@ -295,7 +295,7 @@ img.save("test/others/test.png")
 
 # 共通じゃなくて単独の構造も抜きたい。
 
-# In[30]:
+# In[27]:
 
 for genus in ari:
     with open("test/" + genus + "/splitedcount.txt")as f:
@@ -306,7 +306,7 @@ for genus in ari:
                 print(temp)
 
 
-# In[69]:
+# In[28]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C-C(C-C-C-C(C))-C-C-C-C-C-C-C-C(C-C-C-C)-C-C')
@@ -316,7 +316,7 @@ for genus in ari:
         print()
 
 
-# In[70]:
+# In[29]:
 
 dekai2 = []
 for genus in ari:
@@ -326,12 +326,12 @@ for genus in ari:
             dekai2.append(Cn)
 
 
-# In[71]:
+# In[30]:
 
 print(len(dekai2))
 
 
-# In[72]:
+# In[31]:
 
 hanni = []
 for i in range(1, 52):
@@ -342,7 +342,7 @@ for i in range(1, 52):
 print(hanni)
 
 
-# In[34]:
+# In[32]:
 
 import sys
 sys.path.append("../../module")
@@ -373,7 +373,7 @@ for z, i in enumerate(sorted(dekai2)):
                                     print("Charge in\n")
                                 counter += 1
                                 break
-                            rdDepictor.Compute2DCoords(mol)
+                            # rdDepictor.Compute2DCoords(mol)
                             mol_list.append(mol)
                             nCnumber.append(i)
                             if "#+" in C or "#-" in C:
@@ -391,11 +391,11 @@ print(counter)
 print(mol_list)
 
 
-# In[36]:
+# In[33]:
 
 from rdkit.Chem import Draw
 img = Draw.MolsToGridImage(mol_list, legends=sorted(dekai2), subImgSize=(400, 400))
-img.save("test/others/testonly.png")
+img.save("test/others/testonly_noD.png")
 
 
 # C00016805のkcfsを見たが、スケルトンのスタート基準がよくわからない  
@@ -405,7 +405,7 @@ img.save("test/others/testonly.png")
 
 # 今までやっていた構造もdekaiから探してみる。
 
-# In[39]:
+# In[34]:
 
 for genus in ari:
     Cnlist = gCfl(genus, "C(C)-C(C)-C(C-C-C-C-C-C)-C-C-C-C-C-C-C-C-C")
@@ -419,7 +419,7 @@ for genus in ari:
 
 # スケルトンについてソースを読んだ方がいいかもしれない
 
-# In[73]:
+# In[35]:
 
 dekai3 = []
 for genus in ari:
@@ -429,17 +429,17 @@ for genus in ari:
             dekai3.append(Cn)
 
 
-# In[74]:
+# In[36]:
 
 print(len(dekai3))
 
 
-# In[75]:
+# In[37]:
 
 print(dekai3 == dekai2)
 
 
-# In[76]:
+# In[38]:
 
 dekai4 = []
 for genus in ari:
@@ -449,17 +449,17 @@ for genus in ari:
             dekai4.append(Cn)
 
 
-# In[77]:
+# In[39]:
 
 print(len(dekai4))
 
 
-# In[78]:
+# In[40]:
 
 print(dekai3 == dekai4)
 
 
-# In[79]:
+# In[41]:
 
 only = dict()
 for genus in ari:
@@ -471,12 +471,12 @@ for genus in ari:
                 only[(temp[1], temp[2])] = int(temp[3])
 
 
-# In[80]:
+# In[42]:
 
 sorted(only.items(), reverse=True, key=lambda x: x[1])
 
 
-# In[81]:
+# In[43]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C-C-C-C-C-N-C-C-N-C')
@@ -486,7 +486,7 @@ for genus in ari:
         print()
 
 
-# In[82]:
+# In[44]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C-C-C-C-C-N-C-C-N-C')
@@ -494,12 +494,12 @@ for genus in ari:
         onlyst = Cnlist
 
 
-# In[83]:
+# In[45]:
 
 print(len(onlyst))
 
 
-# In[106]:
+# In[46]:
 
 def check(label, aite):
     label_list = re.split("[-()]", label)
@@ -519,8 +519,9 @@ def check(label, aite):
         return False
 
 
-# In[114]:
+# In[48]:
 
+import re
 counter = 0
 coun = 0
 label = 'C-C-C-C-C-N-C-C-N-C'
@@ -546,19 +547,19 @@ with open("test/Streptomyces/kcfs.kcfs", "r")as f:
                         counter += int(line.split()[i+1][1:-1])
 
 
-# In[110]:
+# In[49]:
 
 print(counter)
 
 
-# In[113]:
+# In[50]:
 
 print(coun)
 
 
 # レベル0で探しているのでモノによっては2個以上出てくるCnがある。
 
-# In[115]:
+# In[51]:
 
 import sys
 sys.path.append("../../module")
@@ -589,7 +590,7 @@ for z, i in enumerate(sorted(onlyst)):
                                     print("Charge in\n")
                                 counter += 1
                                 break
-                            rdDepictor.Compute2DCoords(mol)
+                            # rdDepictor.Compute2DCoords(mol)
                             mol_list.append(mol)
                             nCnumber.append(i)
                             if "#+" in C or "#-" in C:
@@ -602,14 +603,15 @@ for z, i in enumerate(sorted(onlyst)):
 print(counter)
 
 
-# In[117]:
+# In[52]:
 
 from rdkit.Chem import Draw
 img = Draw.MolsToGridImage(mol_list, legends=sorted(onlyst), subImgSize=(400, 400))
-img.save("test/others/testonlyst.png")
+img.save("test/others/testonlyst_noD.png")
 
 
 # 放線菌内でのStreptomyces固有の構造が抜けた。  
+# C00016546の表示がおかしいが、正しい化合物は表示されている。  
 # 化合物名などを回収できるようにしたい。
 
 # In[ ]:
