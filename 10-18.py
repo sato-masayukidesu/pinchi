@@ -14,7 +14,7 @@ from rdkit.Chem import Draw
 from rdkit.Chem import rdDepictor
 
 
-# In[27]:
+# In[2]:
 
 triplet = []
 with open("Streptomyces/kcfscount.txt", "r")as f:
@@ -26,17 +26,17 @@ with open("Streptomyces/kcfscount.txt", "r")as f:
             triplet.append(line)
 
 
-# In[4]:
+# In[3]:
 
 print(triplet)
 
 
-# In[5]:
+# In[4]:
 
 print(len(triplet))
 
 
-# In[7]:
+# In[5]:
 
 d = {"1":0, "2":0, "3":0}
 for triple in triplet:
@@ -44,11 +44,18 @@ for triple in triplet:
 print(d)
 
 
-# In[8]:
+# In[6]:
 
+counter = 0
 for triple in triplet:
     if len(triple.split("\t")[2].split("-")[0]) == 1:
+        counter += 1
         print(triple)
+
+
+# In[7]:
+
+print(counter)
 
 
 # In[33]:

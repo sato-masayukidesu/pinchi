@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[12]:
+# In[1]:
 
 import sys
 sys.path.append("../../module")
@@ -14,7 +14,7 @@ from rdkit.Chem import Draw
 from rdkit.Chem import rdDepictor
 
 
-# In[47]:
+# In[2]:
 
 f = MCS_Finder("Streptomyces")
 
@@ -29,12 +29,12 @@ html = f.get_html(f.genus)
 print(html)
 
 
-# In[6]:
+# In[5]:
 
 get_ipython().run_cell_magic('time', '', 'Cnumber = f.get_Cnumber(html)')
 
 
-# In[29]:
+# In[6]:
 
 print(Cnumber[:-4])
 
@@ -44,7 +44,7 @@ print(Cnumber[:-4])
 print(len(Cnumber))
 
 
-# In[46]:
+# In[8]:
 
 Cnlist = []
 for i in range(1, 52):
@@ -55,7 +55,12 @@ for i in range(1, 52):
 print(Cnlist)
 
 
-# In[31]:
+# In[ ]:
+
+
+
+
+# In[9]:
 
 counter = 0
 f.mol_list = []
@@ -94,13 +99,15 @@ for z, i in enumerate(Cnumber):
 print(counter)
 
 
-# In[34]:
+# 
+
+# In[10]:
 
 img = Draw.MolsToGridImage(f.mol_list, legends=Cnumber[:-4], subImgSize=(400, 400))
 img.save(f.genus + "/allallcomp.png")
 
 
-# In[25]:
+# In[11]:
 
 print(len(f.mol_list))
 
@@ -112,19 +119,17 @@ print(len(f.mol_list))
 
 
 
-# splitedcountを切ってみる
-
-# In[48]:
+# In[12]:
 
 Cnumber = f.get_Cnlist_from_label2("C(C)(C-C(C)-C-C-C-C-C-C-C-C-C)-C-C-C-C-C-C-C-C-C-C-C")
 
 
-# In[49]:
+# In[13]:
 
 print(Cnumber)
 
 
-# In[50]:
+# In[14]:
 
 f.mol_list = []
 counter = 0
@@ -163,7 +168,7 @@ for z, i in enumerate(Cnumber):
 print(counter)
 
 
-# In[51]:
+# In[15]:
 
 mcs = rdFMCS.FindMCS(f.mol_list, matchValences=True, completeRingsOnly=True)
 mcs_smarts = mcs.smartsString
@@ -179,7 +184,7 @@ img.save(f.genus + "/test1.png")
 # また面白そうな形が釣れてしまった  
 # 一個だけ二重結合の数が少なく、酸素の入っている環になっているものがあった(C00015659)
 
-# In[56]:
+# In[16]:
 
 dekalist = []
 with open("Streptomyces/splitedcount.txt", "r")as fi:
@@ -189,17 +194,17 @@ with open("Streptomyces/splitedcount.txt", "r")as fi:
             dekalist.append(line)
 
 
-# In[57]:
+# In[17]:
 
 print(dekalist)
 
 
-# In[58]:
+# In[18]:
 
 print(len(dekalist))
 
 
-# In[60]:
+# In[19]:
 
 search = []
 for deka in dekalist:
@@ -207,12 +212,12 @@ for deka in dekalist:
         search.append(deka)
 
 
-# In[61]:
+# In[20]:
 
 print(len(search))
 
 
-# In[63]:
+# In[21]:
 
 for i in search:
     print(i)
@@ -221,7 +226,7 @@ for i in search:
 # SKELETONの大きい奴だけ抜き出して数が少ないのも切った。  
 # これに関して全部MCSを探す？
 
-# In[67]:
+# In[22]:
 
 d = {"0":0, "1":0, "2":0}
 for i in search:
@@ -230,7 +235,7 @@ for i in search:
 print(d)
 
 
-# In[86]:
+# In[23]:
 
 import re
 label = "C8y(C1x)-C8y(C5x)-C8y(C8y-C8x-C8x-C8x-C8x-C8y)-C8y-C8y-C8y-C8y-C8x-C8x-C8x-C8x-C8y"
@@ -247,24 +252,24 @@ query = re.sub("\(", "[(]", query)
 query = re.sub("\)", "[)]", query)
 
 
-# In[87]:
+# In[24]:
 
 print(query)
 
 
-# In[91]:
+# In[25]:
 
 for i in search:
     if re.search(query, i.split("\t")[2]) is not None:
         print(i)
 
 
-# In[89]:
+# In[26]:
 
 print(label_list)
 
 
-# In[90]:
+# In[27]:
 
 print(type("str"))
 

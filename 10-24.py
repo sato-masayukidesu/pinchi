@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 import os
 from classes import MCS_Finder
@@ -61,7 +61,7 @@ print(len(os.listdir("test")))
 
 # 一個多いのは.DS_Storeのせい 
 
-# In[3]:
+# In[9]:
 
 ari = []
 for genus in os.listdir("test"):
@@ -73,17 +73,17 @@ for genus in os.listdir("test"):
         ari.append(genus)
 
 
-# In[4]:
+# In[10]:
 
 print(len(ari))
 
 
-# In[5]:
+# In[11]:
 
 print(ari)
 
 
-# In[6]:
+# In[12]:
 
 def get_all_cnumber_from_kcfs(genus):
     with open("test/" + genus + "/kcfs.kcfs")as f:
@@ -95,24 +95,24 @@ def get_all_cnumber_from_kcfs(genus):
     return Cnlist
 
 
-# In[7]:
+# In[13]:
 
 get_all_cnumber_from_kcfs(ari[0])
 
 
-# In[8]:
+# In[14]:
 
 arilist = []
 for genus in ari:
     arilist.append(get_all_cnumber_from_kcfs(genus))
 
 
-# In[9]:
+# In[15]:
 
 print(arilist)
 
 
-# In[10]:
+# In[16]:
 
 kosuu = dict()
 for Cnlist in arilist:
@@ -120,21 +120,24 @@ for Cnlist in arilist:
         kosuu[Cn] = kosuu.get(Cn, 0) + 1
 
 
-# In[11]:
+# In[17]:
 
 print(kosuu)
 
 
-# In[12]:
+# In[18]:
 
 print(len(kosuu))
 
 
-# In[13]:
+# In[19]:
 
+counter = 0
 for i in kosuu.items():
     if i[1] > 1:
         print(i)
+        counter += i[1] -1
+print(len(kosuu)-counter)
 
 
 # ダブってる奴は少なかった。

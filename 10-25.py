@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 import os
 from classes import MCS_Finder
@@ -12,15 +12,16 @@ sys.path.append("../../module")
 from rdkit.Chem import rdDepictor
 import kcf.converter as kcfco
 from rdkit import Chem
+
 from nxrd.Compound import Compound
 
 
-# In[16]:
+# In[2]:
 
 c = Compound()
 
 
-# In[17]:
+# In[3]:
 
 hanni = []
 for i in range(1, 52):
@@ -31,7 +32,7 @@ for i in range(1, 52):
 print(hanni)
 
 
-# In[18]:
+# In[4]:
 
 i = "C00016546"
 num = 16546
@@ -68,17 +69,17 @@ for p, k in enumerate(hanni[1:]):
         break
 
 
-# In[19]:
+# In[5]:
 
 print(mol_list)
 
 
-# In[20]:
+# In[6]:
 
 c.input_rdkmol(mol_list[0])
 
 
-# In[21]:
+# In[7]:
 
 get_ipython().magic('matplotlib inline')
 c.draw_cpd_with_labels()
@@ -91,33 +92,33 @@ c.draw_cpd_with_labels()
 
 # C番号から化合物名を持ってきたい。
 
-# In[23]:
+# In[8]:
 
 import requests
 import lxml.html
 
 
-# In[24]:
+# In[ ]:
 
 html = requests.get("http://kanaya.naist.jp/knapsack_jsp/information.jsp?word=C00016546")
 
 
-# In[25]:
+# In[ ]:
 
 print(html)
 
 
-# In[26]:
+# In[ ]:
 
 dom = lxml.html.fromstring(html.text)
 
 
-# In[30]:
+# In[ ]:
 
 dom.xpath('//*[@id="my_contents"]/table/tr[2]/td[1]/table/tr[1]/td')[0].text
 
 
-# In[31]:
+# In[ ]:
 
 def get_name(Cnumber):
     import requests
@@ -133,7 +134,7 @@ def get_name(Cnumber):
 print(get_name("C00016546"))
 
 
-# In[32]:
+# In[10]:
 
 ari = []
 for genus in os.listdir("test"):
@@ -145,7 +146,7 @@ for genus in os.listdir("test"):
         ari.append(genus)
 
 
-# In[69]:
+# In[11]:
 
 def gCfl(genus, label):
     import re
@@ -173,7 +174,7 @@ def gCfl(genus, label):
         return Cnlist
 
 
-# In[70]:
+# In[12]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C-C-C-C-C-N-C-C-N-C')
@@ -181,12 +182,12 @@ for genus in ari:
         onlyst = Cnlist
 
 
-# In[71]:
+# In[13]:
 
 print(onlyst, len(onlyst))
 
 
-# In[56]:
+# In[14]:
 
 get_ipython().run_cell_magic('time', '', 'import time\nimport datetime\nCname = dict()\nprint(datetime.datetime.now())\nfor Cnumber in onlyst:\n    name = get_name(Cnumber)\n    Cname[Cnumber] = name\n    time.sleep(10)')
 
@@ -322,7 +323,7 @@ for genus in ari:
         print()
 
 
-# In[89]:
+# In[15]:
 
 for genus in ari:
     Cnlist = gCfl(genus, 'C1-C1-C5-C1-C1-C1')
@@ -331,6 +332,11 @@ for genus in ari:
         print(Cnlist)
         print()
         onlyst = Cnlist
+
+
+# In[17]:
+
+print(len(onlyst))
 
 
 # In[90]:
